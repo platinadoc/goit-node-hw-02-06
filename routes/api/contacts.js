@@ -13,17 +13,16 @@ const {
 	schemaUpdate,
 	schemaUpdateFavorite,
 } = require("../../models/contact");
-const { validateRequest } = require("../../middlewares/validateRequest");
+const { validateId, validateRequest, auth } = require("../../middlewares");
 
-router.get("/", getAll);
-router.get("/:contactId", getById);
-router.post("/", validateRequest(schemaAdd), create);
-router.put("/:contactId", validateRequest(schemaUpdate), updateById);
+router.get("/", auth, getAll);
+router.get("/:contactId", auth, validateId, getById);
+router.post("/", validateRequest(schemaAdd), auth, create);
+router.put("/:contactId", validateRequest(schemaUpdate), auth, validateId, updateById);
 router.patch(
 	"/:contactId/favorite",
-	validateRequest(schemaUpdateFavorite),
-	updateStatusContact
+	validateRequest(schemaUpdateFavorite), auth, validateId, updateStatusContact
 );
-router.delete("/:contactId", deleteById);
+router.delete("/:contactId", auth, validateId, deleteById);
 
 module.exports = router;
