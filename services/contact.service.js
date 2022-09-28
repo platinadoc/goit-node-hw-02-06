@@ -1,15 +1,22 @@
 const { Contact } = require("../models/contact");
 
-const getAll = async () => {
-	return Contact.find({}, {}, {});
+const getAll = async (query) => {
+	const { page, limit } = query;
+	const skipped = (page - 1) * limit;
+	const skip = skipped < 0 ? 0 : skipped;
+
+	return Contact.find({}, {}, { skip, limit: +limit }).populate(
+		"owner",
+		"subscription"
+	);
 };
 
 const getById = async (contactId) => {
 	return Contact.findById(contactId);
 };
 
-const create = async (contact) => {
-	return Contact.create(contact);
+const create = async (contact, id) => {
+	return Contact.create({ ...contact, owner: id });
 };
 
 const updateById = async (contactId, contact) => {

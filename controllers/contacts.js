@@ -3,8 +3,7 @@ const { createError } = require("../helpers/error");
 
 const getAll = async (req, res, next) => {
 	try {
-		const allContacts = await contacts.getAll();
-		email.sendEmail();
+		const allContacts = await contacts.getAll(req.query);
 		res.status(200).json(allContacts);
 	} catch (error) {
 		next(error);
@@ -26,7 +25,8 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
 	try {
-		const newContact = await contacts.create(req.body);
+		const { _id } = req.user;
+		const newContact = await contacts.create(req.body, _id);
 		res.status(201).json(newContact);
 	} catch (error) {
 		if (error.message.includes("duplicate")) {
