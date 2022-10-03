@@ -8,6 +8,7 @@ const register = async (req, res, next) => {
 			email: user.email,
 			role: user.role,
 			id: user._id,
+			avatarURL: user.avatarURL
 		});
 	} catch (error) {
 		next(error);
