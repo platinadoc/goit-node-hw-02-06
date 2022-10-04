@@ -1,4 +1,4 @@
-const { contacts, email } = require("../services");
+const { contacts } = require("../services");
 const { createError } = require("../helpers/error");
 
 const getAll = async (req, res, next) => {
