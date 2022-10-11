@@ -36,6 +36,7 @@ const schemaAdd = Joi.object({
 		.required(),
 	favorite: Joi.bool(),
 });
+
 const schemaUpdate = Joi.object({
 	name: Joi.string().min(2).max(20),
 	email: Joi.string().email(),

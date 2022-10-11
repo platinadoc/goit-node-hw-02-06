@@ -8,11 +8,13 @@ const {
 	deleteById,
 	updateStatusContact,
 } = require("../../controllers/contacts");
+
 const {
 	schemaAdd,
 	schemaUpdate,
 	schemaUpdateFavorite,
 } = require("../../models/contact");
+
 const { validateId, validateRequest, auth } = require("../../middlewares");
 
 router.get("/", auth, getAll);

@@ -1,15 +1,15 @@
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const logger = require("morgan");
+const cors = require("cors");
+require("dotenv").config();
 
-const contactsRouter = require('./routes/api/contacts');
+const contactsRouter = require("./routes/api/contacts");
 const authRouter = require("./routes/api/auth");
 const usersRouter = require("./routes/api/users");
 
 const app = express();
 
-const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
+const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
 app.use(cors());
@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-app.use('/api/contacts', contactsRouter);
+app.use("/api/contacts", contactsRouter);
 
 app.use((req, res, next) => {
   next({ status: 404, message: 'Not found' });
